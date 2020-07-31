@@ -71,20 +71,7 @@ app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-var server=app.listen(process.env.PORT||4000, function(){
+app.listen(process.env.PORT||4000, function(){
    console.log("Foodzoa Has Started!");
 });
 
-let io = socket(server)
-
-io.on('connection', (socket)=>{
-  // callback function after connection is made to the client
-
-  // recieves a chat event, then sends the data to other sockets
-  socket.on('chat', (data)=>{
-      io.sockets.emit('chat', data)
-  });
-  socket.on('userisTyping',(data) =>{
-      socket.broadcast.emit('userisTyping',data)
-  })
-});
