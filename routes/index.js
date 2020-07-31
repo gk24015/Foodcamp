@@ -53,6 +53,8 @@ router.get("/logout", function(req, res){
    req.flash("success", "See you later!");
    res.redirect("/campgrounds");
 });
-
+router.get("/chat",function(req,res){
+    res.render("chat");
+})
 
 module.exports = router;

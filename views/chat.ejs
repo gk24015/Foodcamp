@@ -1,0 +1,39 @@
+<% include ./partials/header %>
+    <!-- connects to the server and displays results -->
+    <div class="container">
+        <div class="navbar-header">
+            <div class="text justify" id ="t"><h1 style="text-align: center" ><b>CHIT CHAT</b></h1></div>
+            </div>
+        </div>        
+    <div class="container" id="chat">
+            <div id="chat-window">
+    
+            <div id="output" ></div>
+            <div id="typing"></div>
+        </div>
+        
+    <div class="jumbotron">
+        <div class="container-sm">
+            <div class="container-sm">
+              <input id="handle" type="text" placeholder="<%= currentUser.username%>" class="form-control"disabled="disabled" />
+              <input id="message" type="text" placeholder="message" class="form-control"/>
+              <button id="submit" class="btn btn-md btn-primary ">Send</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <!-- <script src="http://localhost:3000/socket.io/socket.io.js" async defer></script> -->
+
+    <!-- <script src="socket.io/socket.io.js"></script>  -->
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+    <script src="/clientS.js"></script>
+    <!-- <script>
+            var socket = io();
+        </script> -->
+
+</body>
+
+</html>
+<% include ./partials/footer %>

@@ -12,6 +12,7 @@ var express     = require("express"),
     session = require("express-session"),
     seedDB      = require("./seeds"),
     methodOverride = require("method-override");
+    socket = require('socket.io');
 // configure dotenv
 //require('dotenv').load();
 require('dotenv').config({path:'my-app/.env'});
@@ -70,6 +71,20 @@ app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-app.listen(process.env.PORT||4000, function(){
+var server=app.listen(process.env.PORT||4000, function(){
    console.log("Foodzoa Has Started!");
+});
+
+let io = socket(server)
+
+io.on('connection', (socket)=>{
+  // callback function after connection is made to the client
+
+  // recieves a chat event, then sends the data to other sockets
+  socket.on('chat', (data)=>{
+      io.sockets.emit('chat', data)
+  });
+  socket.on('userisTyping',(data) =>{
+      socket.broadcast.emit('userisTyping',data)
+  })
 });
