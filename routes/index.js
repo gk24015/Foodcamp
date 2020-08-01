@@ -43,7 +43,7 @@ router.post("/login", passport.authenticate("local",
         successRedirect: "/campgrounds",
         failureRedirect: "/login",
         failureFlash: true,
-        successFlash: 'Welcome to YelpCamp!'
+        successFlash: 'Welcome to Foodzoa!'
     }), function(req, res){
 });
 
@@ -53,8 +53,6 @@ router.get("/logout", function(req, res){
    req.flash("success", "See you later!");
    res.redirect("/campgrounds");
 });
-router.get("/chat",function(req,res){
-    res.render("chat");
-})
+
 
 module.exports = router;

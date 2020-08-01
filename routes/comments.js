@@ -50,7 +50,7 @@ router.get("/:commentId/edit", isLoggedIn, checkUserComment, function(req, res){
   res.render("comments/edit", {campground_id: req.params.id, comment: req.comment});
 });
 
-router.put("/:commentId", isAdmin, function(req, res){
+router.put("/:commentId", isLoggedIn, checkUserComment, function(req, res){
    Comment.findByIdAndUpdate(req.params.commentId, req.body.comment, function(err, comment){
        if(err){
           console.log(err);
