@@ -15,8 +15,8 @@
         <h4 class="pull-right">
           $<%= campground.cost %>/person
         </h4>
-        <h4><a><%=campground.name%></a></h4>
-
+        <h4><a id="t1"><%=campground.name%></a></h4>
+        <h4 id="ttt"><%=campground.location%></h4>
         <div class="pull-right">
           <button type="button" class="btn btn-xs btn-success" data-toggle="modal"
                   data-target="#campgroundLikes">
@@ -123,30 +123,36 @@
 </div>
 <script>
   function initMap() {
-    var lat =  50.5 ;
-    var lng =  47.3 ;
-    var center = {lat: lat, lng: lng };
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 8,
-        center: center,
-        scrollwheel: false
-    });
-    var contentString = `
-      <strong><%= campground.name %><br />
-      <%= campground.location %></strong>
-      <p><%= campground.description %></p>
-    `
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
-    var marker = new google.maps.Marker({
-        position: center,
-        map: map
-    });
-    marker.addListener('click', function() {
-      infowindow.open(map, marker);
-    });
-  }
+    var myLatLng = { lat: 25.3, lng: 82.4 };
+    map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 25.3, lng: 82.4 },
+    zoom: 8
+  });
+  var point = new google.maps.LatLng(25.3,80.4);
+
+  var marker =    new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            //icon: icon,
+            //shadow: map_icon_shadow
+            title: document.getElementById("ttt").textContent
+        });
+   
+}
+function geocodeAddress(geocoder, resultsMap) {
+  const address = document.getElementById("ttt").textContent;
+  geocoder.geocode({ address: address }, (results, status) => {
+    if (status === "OK") {
+      resultsMap.setCenter(results[0].geometry.location);
+      new google.maps.Marker({
+        map: resultsMap,
+        position: results[0].geometry.location
+      });
+    } else {
+      alert("Geocode was not successful for the following reason: " + status);
+    }
+  });
+}
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApjIpbc8RVTLVO74tV7SoTFV3juthoxg0&callback=initMap"></script>
 <% include ../partials/footer %>

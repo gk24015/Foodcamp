@@ -71,7 +71,7 @@ app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-var server=app.listen(process.env.PORT||4000, function(){
+var server=app.listen(process.env.PORT||4001, function(){
    console.log("Foodzoa Has Started!");
 });
 
