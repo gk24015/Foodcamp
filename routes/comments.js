@@ -7,7 +7,7 @@ const { isLoggedIn, checkUserComment, isAdmin } = middleware;
 
 //Comments New
 router.get("/new", isLoggedIn, function(req, res){
-    // find campground by id
+    // find item by id
     console.log(req.params.id);
     Campground.findById(req.params.id, function(err, campground){
         if(err){
@@ -20,7 +20,7 @@ router.get("/new", isLoggedIn, function(req, res){
 
 //Comments Create
 router.post("/", isLoggedIn, function(req, res){
-   //lookup campground using ID
+   //lookup item using ID
    Campground.findById(req.params.id, function(err, campground){
        if(err){
            console.log(err);
@@ -62,7 +62,7 @@ router.put("/:commentId", isLoggedIn, checkUserComment, function(req, res){
 });
 
 router.delete("/:commentId", isLoggedIn, checkUserComment, function(req, res){
-  // find campground, remove comment from comments array, delete comment in db
+  // find item, remove comment from comments array, delete comment in db
   Campground.findByIdAndUpdate(req.params.id, {
     $pull: {
       comments: req.comment.id

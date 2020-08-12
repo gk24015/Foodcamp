@@ -43,7 +43,7 @@ router.post("/login", passport.authenticate("local",
         successRedirect: "/campgrounds",
         failureRedirect: "/login",
         failureFlash: true,
-        successFlash: 'Welcome to Foodzoa!'
+        successFlash: 'Welcome to Foodcamp!'
     }), function(req, res){
 });
 

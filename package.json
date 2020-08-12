@@ -4,7 +4,7 @@
   "engines": {
     "node": "6.11.1"
   },
-  "description": "Foodzoa",
+  "description": "Foodcamp",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",

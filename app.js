@@ -36,18 +36,18 @@ var commentRoutes    = require("./routes/comments"),
       });
 
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));  // so it could be expressed as req.body
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
-app.use(methodOverride('_method'));
+app.use(methodOverride('_method')); // enables to use put and delete for form where client doesn't support it.
 app.use(cookieParser('secret'));
 //require moment
 app.locals.moment = require('moment');
 // seedDB(); //seed the database
 
 // PASSPORT CONFIGURATION
-app.use(require("express-session")({
-    secret: "Once again Rusty wins cutest dog!",
+app.use(require("express-session")({ // sessions for responding
+    secret: "Hey there delilah",
     resave: false,
     saveUninitialized: false
 }));
@@ -72,6 +72,6 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
 var server=app.listen(process.env.PORT||4001, function(){
-   console.log("Foodzoa Has Started!");
+   console.log("Foodcamp Has Started!");
 });
 

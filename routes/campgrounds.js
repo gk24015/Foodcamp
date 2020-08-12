@@ -11,11 +11,11 @@ function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
 
-//INDEX - show all campgrounds
+//INDEX - show all items
 router.get("/", function(req, res){
   if(req.query.search && req.xhr) {
       const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-      // Get all campgrounds from DB
+      // Get all food from DB
       Campground.find({name: regex}, function(err, allCampgrounds){
          if(err){
             console.log(err);
@@ -24,13 +24,13 @@ router.get("/", function(req, res){
          }
       });
   } else {
-      // Get all campgrounds from DB
+      // Get all items from DB
       Campground.find({}, function(err, allCampgrounds){
          if(err){
              console.log(err);
          } else {
             if(req.xhr) {
-              res.json(allCampgrounds);
+              res.json(allCampgrounds);//takes single object and converts in json
             } else {
               res.render("campgrounds/index",{campgrounds: allCampgrounds, page: 'campgrounds'});
             }
@@ -39,9 +39,9 @@ router.get("/", function(req, res){
   }
 });
 
-//CREATE - add new campground to DB
+//CREATE - add new item to DB
 router.post("/", isLoggedIn, isSafe, function(req, res){
-  // get data from form and add to campgrounds array
+  // get data from form and add to  array
   var name = req.body.name;
   var image = req.body.image;
   var desc = req.body.description;
@@ -59,12 +59,12 @@ router.post("/", isLoggedIn, isSafe, function(req, res){
     var lng = 28.7041;
     var location = "delhi";
     var newCampground = {name: name, image: image, description: desc, cost: cost, author:author, location: location, lat: lat, lng: lng};
-    // Create a new campground and save to DB
+    // Create a new item and save to DB
     Campground.create(newCampground, function(err, newlyCreated){
         if(err){
             console.log(err);
         } else {
-            //redirect back to campgrounds page
+            //redirect back to index page
             console.log(newlyCreated);
             res.redirect("/campgrounds");
         }
@@ -72,33 +72,33 @@ router.post("/", isLoggedIn, isSafe, function(req, res){
   });
 });
 
-//NEW - show form to create new campground
+//NEW - show form to create new item
 router.get("/new", isLoggedIn, function(req, res){
    res.render("campgrounds/new"); 
 });
 
-// SHOW - shows more info about one campground
+// SHOW - shows more info about one item
 router.get("/:id", function(req, res){
     //find the campground with provided ID
     Campground.findById(req.params.id).populate("comments likes").exec(function(err, foundCampground){
         if(err || !foundCampground){
             console.log(err);
-            req.flash('error', 'Sorry, that campground does not exist!');
+            req.flash('error', 'Sorry, that item does not exist!');
             return res.redirect('/campgrounds');
         }
         console.log(foundCampground)
-        //render show template with that campground
+        //render show template with that item
         res.render("campgrounds/show", {campground: foundCampground});
     });
 });
 
-// EDIT - shows edit form for a campground
+// EDIT - shows edit form for a item
 router.get("/:id/edit", isLoggedIn, checkUserCampground, function(req, res){
-  //render edit template with that campground
+  //render edit template with that item
   res.render("campgrounds/edit", {campground: req.campground});
 });
 
-// PUT - updates campground in the database
+// PUT - updates item in the database
 router.put("/:id", isSafe, function(req, res){
   geocoder.geocode(req.body.location, function (err, data) {
     var lat = 25.23;	//results[0].geometry.location.lat;
@@ -117,9 +117,9 @@ router.put("/:id", isSafe, function(req, res){
   });
 });
 
-// DELETE - removes campground and its comments from the database
+// DELETE - removes items and its comments from the database
 router.delete("/:id", isLoggedIn, checkUserCampground, function(req, res) {
-    Comment.remove({
+    Comment.remove({// first removing the comment and then the item
       _id: {
         $in: req.campground.comments
       }
@@ -133,7 +133,7 @@ router.delete("/:id", isLoggedIn, checkUserCampground, function(req, res) {
                 req.flash('error', err.message);
                 return res.redirect('/');
             }
-            req.flash('error', 'Campground deleted!');
+            req.flash('error', 'Food item deleted!');
             res.redirect('/campgrounds');
           });
       }
