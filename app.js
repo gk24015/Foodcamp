@@ -32,7 +32,7 @@ var commentRoutes    = require("./routes/comments"),
       }).then(() =>{
         console.log('Connected to db');
       }).catch(err=>{
-        console.log("error",err.message); 
+        console.log("error",err.message);   
       });
 
 
