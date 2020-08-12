@@ -1,4 +1,4 @@
-# Foodzoa
+# Foodcamp
 A blogging website for all the foodies out there where you fill find hand picked food items from all around 
 Features:-
  1.the restraunt or owners can put up its recepie ,food ,price and its location.
