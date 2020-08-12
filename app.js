@@ -14,7 +14,7 @@ var express     = require("express"),
     methodOverride = require("method-override");
     socket = require('socket.io');
 // configure dotenv
-//require('dotenv').load();
+//require('dotenv').load();   
 require('dotenv').config({path:'my-app/.env'});
 
 //requiring routes
