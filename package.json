@@ -20,7 +20,7 @@
     "cookie-parser": "^1.4.5",
     "dotenv": "^4.0.0",
     "ejs": "^2.7.4",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.17.1",
     "geocoder": "^0.2.3",
     "locus": "^2.0.4",
